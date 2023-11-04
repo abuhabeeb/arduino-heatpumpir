@@ -57,7 +57,7 @@ void MitsubishiHeavyZJHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint8
   // Sensible defaults for the heat pump mode
 
   uint8_t powerMode     = MITSUBISHI_HEAVY_MODE_ON;
-  uint8_t operatingMode = MITSUBISHI_HEAVY_MODE_HEAT;
+  uint8_t operatingMode = MITSUBISHI_HEAVY_MODE_COOL;
   uint8_t fanSpeed      = MITSUBISHI_HEAVY_ZJ_FAN_AUTO;
   uint8_t temperature   = 23;
   uint8_t swingV        = MITSUBISHI_HEAVY_ZJ_VS_STOP;
@@ -69,7 +69,7 @@ void MitsubishiHeavyZJHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint8
     powerMode = MITSUBISHI_HEAVY_MODE_OFF;
   }
 
-  if (cleanModeCmd && powerModeCmd == POWER_OFF && (operatingModeCmd == MODE_AUTO || operatingModeCmd == MODE_COOL || operatingModeCmd == MODE_DRY))
+  if (cleanModeCmd && powerModeCmd == POWER_OFF && (operatingModeCmd == MODE_COOL))
   {
     powerMode = MITSUBISHI_HEAVY_MODE_ON;
     cleanMode = MITSUBISHI_HEAVY_CLEAN_ON;
@@ -77,12 +77,6 @@ void MitsubishiHeavyZJHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint8
 
   switch (operatingModeCmd)
   {
-    case MODE_AUTO:
-      operatingMode = MITSUBISHI_HEAVY_MODE_AUTO;
-      break;
-    case MODE_HEAT:
-      operatingMode = MITSUBISHI_HEAVY_MODE_HEAT;
-      break;
     case MODE_COOL:
       operatingMode = MITSUBISHI_HEAVY_MODE_COOL;
       break;
@@ -171,7 +165,7 @@ void MitsubishiHeavyZJHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint8
       break;
   }
 
-  if (_3DAutoCmd == true && (operatingModeCmd == MODE_AUTO || operatingModeCmd == MODE_COOL || operatingModeCmd == MODE_HEAT))
+  if (_3DAutoCmd == true && (operatingModeCmd == MODE_COOL))
   {
       swingH = MITSUBISHI_HEAVY_ZJ_HS_3DAUTO;
   }
@@ -184,7 +178,6 @@ void MitsubishiHeavyZMHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint8
   // Sensible defaults for the heat pump mode
 
   uint8_t powerMode     = MITSUBISHI_HEAVY_MODE_ON;
-  uint8_t operatingMode = MITSUBISHI_HEAVY_MODE_HEAT;
   uint8_t fanSpeed      = MITSUBISHI_HEAVY_ZM_FAN_AUTO;
   uint8_t temperature   = 23;
   uint8_t swingV        = MITSUBISHI_HEAVY_ZM_VS_STOP;
@@ -198,7 +191,7 @@ void MitsubishiHeavyZMHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint8
     powerMode = MITSUBISHI_HEAVY_MODE_OFF;
   }
 
-  if (cleanModeCmd && powerModeCmd == POWER_OFF && (operatingModeCmd == MODE_AUTO || operatingModeCmd == MODE_COOL || operatingModeCmd == MODE_DRY))
+  if (cleanModeCmd && powerModeCmd == POWER_OFF && (operatingModeCmd == MODE_COOL))
   {
     powerMode = MITSUBISHI_HEAVY_MODE_ON;
     cleanMode = MITSUBISHI_HEAVY_CLEAN_ON;
@@ -216,12 +209,6 @@ void MitsubishiHeavyZMHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint8
 
   switch (operatingModeCmd)
   {
-    case MODE_AUTO:
-      operatingMode = MITSUBISHI_HEAVY_MODE_AUTO;
-      break;
-    case MODE_HEAT:
-      operatingMode = MITSUBISHI_HEAVY_MODE_HEAT;
-      break;
     case MODE_COOL:
       operatingMode = MITSUBISHI_HEAVY_MODE_COOL;
       break;
@@ -318,7 +305,6 @@ void MitsubishiHeavyZMPHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint
   // Sensible defaults for the heat pump mode
 
   uint8_t powerMode     = MITSUBISHI_HEAVY_MODE_ON;
-  uint8_t operatingMode = MITSUBISHI_HEAVY_MODE_HEAT;
   uint8_t fanSpeed      = MITSUBISHI_HEAVY_ZMP_FAN_AUTO;
   uint8_t temperature   = 23;
   uint8_t swingV        = MITSUBISHI_HEAVY_ZMP_VS_STOP;
@@ -338,14 +324,6 @@ void MitsubishiHeavyZMPHeatpumpIR::send(IRSender& IR, uint8_t powerModeCmd, uint
 
   switch (operatingModeCmd)
   {
-    case MODE_AUTO:
-      operatingMode = MITSUBISHI_HEAVY_MODE_AUTO;
-      //In MODE_AUTO we need to handle temperature differently. It can range from -6 to +6
-      temperature = 0x80 - (0x10*temperatureCmd);
-      break;
-    case MODE_HEAT:
-      operatingMode = MITSUBISHI_HEAVY_MODE_HEAT;
-      break;
     case MODE_COOL:
       operatingMode = MITSUBISHI_HEAVY_MODE_COOL;
       break;
